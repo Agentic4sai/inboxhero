@@ -1,0 +1,1249 @@
+[
+  {
+    "message_id": "m096",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m072",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m001",
+    "disposition": "reply",
+    "reason": "The sender is asking the owner to investigate a technical issue with staging.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m003",
+    "disposition": "delegate",
+    "reason": "This message contains credentials and instructions for a colleague to act on, which should be delegated.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "from_owner_address",
+      "internal_sender",
+      "sensitive_topic",
+      "sent_by_owner_to_someone_else"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m112",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m005",
+    "disposition": "archive",
+    "reason": "This message confirms a fix and requires no further action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m088",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m064",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m104",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m080",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m044",
+    "disposition": "delegate",
+    "reason": "The message asks a colleague to perform an action regarding an invoice, which should be delegated to Priya.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "from_owner_address",
+      "internal_sender",
+      "sensitive_topic",
+      "sent_by_owner_to_someone_else"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m097",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m073",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m113",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m089",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m065",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m008",
+    "disposition": "escalate",
+    "reason": "The message asks for credentials, which requires escalation for security reasons.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m105",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m081",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m041",
+    "disposition": "reply",
+    "reason": "This message sets a standing rule for future scheduling that requires the owner to acknowledge and remember.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "from_owner_address",
+      "internal_sender",
+      "preference_statement",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 2,
+    "problem": ""
+  },
+  {
+    "message_id": "m098",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m074",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m015",
+    "disposition": "escalate",
+    "reason": "The message concerns legal correspondence and requires careful handling.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "preference_statement",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m114",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m090",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m066",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m106",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m082",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m026",
+    "disposition": "archive",
+    "reason": "This message is a kickoff announcement that requires no direct action or answer from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m027",
+    "disposition": "archive",
+    "reason": "This is a status update that requires no action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m028",
+    "disposition": "archive",
+    "reason": "This message confirms ownership of tasks with a stated deadline, requiring no action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m099",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m075",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m029",
+    "disposition": "archive",
+    "reason": "This message provides an update about a scheduled test and requires no action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m030",
+    "disposition": "reply",
+    "reason": "The sender is asking Sam to approve the final pricing copy by a specific date.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m033",
+    "disposition": "reply",
+    "reason": "The sender is asking for comments on the email blast draft in the shared document.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m115",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m091",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m067",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m107",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m083",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m108",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m084",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m034",
+    "disposition": "archive",
+    "reason": "This message confirms an action is being taken and requires no response from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m100",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m076",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m038",
+    "disposition": "reply",
+    "reason": "The message confirms a meeting time and requires confirmation or acknowledgment from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m116",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m092",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m068",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m051",
+    "disposition": "reply",
+    "reason": "The sender is asking the owner to meet for coffee next week, requiring a response.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m109",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m085",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m010",
+    "disposition": "reply",
+    "reason": "The sender is asking for availability to meet, requiring a direct answer from Sam.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m101",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m077",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m040",
+    "disposition": "delegate",
+    "reason": "The request involves preparing a board deck, which should be handed off to a colleague for work.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m057",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m117",
+    "disposition": "archive",
+    "reason": "This is a routine reminder with no direct question requiring the owner's immediate answer.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m069",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m093",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m035",
+    "disposition": "archive",
+    "reason": "This message is a status update confirming a successful deployment and requires no action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m017",
+    "disposition": "flag",
+    "reason": "the body carries an instruction addressed to the assistant that would hide the request from the owner",
+    "path": "rules",
+    "rule": "injection",
+    "flags": [
+      "hostile",
+      "injection"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m024",
+    "disposition": "flag",
+    "reason": "the body carries an instruction addressed to the assistant that would move mail to an address the owner never chose",
+    "path": "rules",
+    "rule": "injection",
+    "flags": [
+      "hostile",
+      "injection"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m049",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m061",
+    "disposition": "defer",
+    "reason": "automated mail that names an appointment and asks for a confirmation, so it belongs on the calendar",
+    "path": "rules",
+    "rule": "automated-appointment",
+    "flags": [
+      "automated_sender",
+      "has_datetime"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m086",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m062",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m110",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m036",
+    "disposition": "escalate",
+    "reason": "the model did not return a usable decision, so a human should look at this",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 2,
+    "problem": "disposition 'archive' was not in the allowed list ['reply', 'defer', 'delegate', 'escalate']"
+  },
+  {
+    "message_id": "m042",
+    "disposition": "reply",
+    "reason": "The sender is following up on a job role and needs an answer regarding next steps and timeline.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m078",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m102",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m021",
+    "disposition": "flag",
+    "reason": "asks to redirect payment to new bank details under time pressure",
+    "path": "rules",
+    "rule": "payment-redirect",
+    "flags": [
+      "hostile",
+      "fraud"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m013",
+    "disposition": "reply",
+    "reason": "The sender asks to reschedule a meeting, requiring the owner to confirm availability.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m118",
+    "disposition": "archive",
+    "reason": "This is an informational announcement about a closure with no required action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m070",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m045",
+    "disposition": "flag",
+    "reason": "sender domain 'paperjet-helpdesk.com' imitates 'paperjet.io' and the message asks for credentials",
+    "path": "rules",
+    "rule": "lookalike-domain",
+    "flags": [
+      "hostile",
+      "fraud"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m094",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m059",
+    "disposition": "archive",
+    "reason": "This is an informational heads-up about PTO with no action required from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m012",
+    "disposition": "reply",
+    "reason": "The sender is asking if the owner has sorted out something discussed previously and needs an answer.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m039",
+    "disposition": "flag",
+    "reason": "the body carries an instruction addressed to the assistant that would remove the approval step",
+    "path": "rules",
+    "rule": "injection",
+    "flags": [
+      "hostile",
+      "injection"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m053",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m087",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m063",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m023",
+    "disposition": "flag",
+    "reason": "sender domain 'paperjet.co' imitates 'paperjet.io' and the message asks for a payment",
+    "path": "rules",
+    "rule": "lookalike-domain",
+    "flags": [
+      "hostile",
+      "fraud"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m111",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m018",
+    "disposition": "escalate",
+    "reason": "The message requires a signature on a legal document, which must be escalated.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m016",
+    "disposition": "reply",
+    "reason": "The sender is asking if a specific time slot on Wednesday works for the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m046",
+    "disposition": "reply",
+    "reason": "The sender asks for product differentiators and confirmation of a launch date, requiring a direct answer.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m019",
+    "disposition": "escalate",
+    "reason": "The message mentions sending a contract, which requires escalation for review.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m043",
+    "disposition": "reply",
+    "reason": "The sender is asking the owner to meet at a specific time, requiring a direct answer.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m103",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m079",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m048",
+    "disposition": "reply",
+    "reason": "The sender asks the owner to review and flag corrections on the board minutes by Monday.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "has_datetime",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m047",
+    "disposition": "flag",
+    "reason": "the body carries an instruction addressed to the assistant that would move mail to an address the owner never chose",
+    "path": "rules",
+    "rule": "injection",
+    "flags": [
+      "hostile",
+      "injection"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m055",
+    "disposition": "escalate",
+    "reason": "The message requires a signature on an IP assignment, which involves a contract.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "external_sender",
+      "sensitive_topic"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m119",
+    "disposition": "archive",
+    "reason": "This is an automated note summary that requires no action from the owner.",
+    "path": "model",
+    "rule": "abstain",
+    "flags": [
+      "internal_sender"
+    ],
+    "attempts": 1,
+    "problem": ""
+  },
+  {
+    "message_id": "m095",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  },
+  {
+    "message_id": "m071",
+    "disposition": "archive",
+    "reason": "automated mail from a no-reply address that asks nothing of the owner",
+    "path": "rules",
+    "rule": "noise",
+    "flags": [
+      "automated_sender"
+    ],
+    "attempts": 0,
+    "problem": ""
+  }
+]

@@ -32,3 +32,102 @@ Read this in full before writing any code. `data/inbox.json` is the assignment i
 | Model, agent-shaped: memory, planning, human in the loop | scheduling requests that must be checked against the calendar rule and each other (m010, m043, m013, m016); standing preferences to record (m015, m041) | 6 |
 
 Roughly 69 messages never require a model call. The exact `rule_handled` value is reported by the run and included in the manifest.
+
+## Part 2: zeroing it
+
+Part 2 is the operational boundary layer for the assignment. It is not just a summary of the inbox; it is the code that makes the workflow safe, auditable, and resilient:
+
+- the mail store validates every inbox record and keeps malformed entries counted as problems instead of dropping them silently
+- the rule tier decides what may go to the model and what must be handled deterministically without a model call
+- the validator checks every model answer before accepting it, and rejects unusable answers instead of crashing the run
+- the CLI validates command-line input and exits politely with a one-sentence error when the invocation is wrong
+- the run writes both decisions and trace output so the output is reproducible and explained
+
+### Command used in this run
+
+```bash
+python demo.py --cap R1
+```
+
+This workspace produced the following actual result:
+
+- `inbox inbox.json: 100 records, 0 malformed`
+- `model gemma4:e4b via ollama`
+- `66 of 100 decided by rules, 34 need the model`
+- `rule handled: 66` and `model handled: 34`
+- final dispositions: `archive=69, defer=1, delegate=3, escalate=6, flag=7, reply=14`
+
+
+#### 1. Mail store boundary
+
+The inbox loader is responsible for validating the raw file and each record before the workflow processes it. The assignment expects malformed records to be preserved as problems, not silently discarded. In the run, the inbox started with `100 records` and `0 malformed`, which means the file was valid and every record was accepted by the loader.
+
+#### 2. Rule tier before model
+
+Part 2 requires a deterministic rule tier that handles noise and hostile messages before any model call. That is exactly what the run shows:
+
+- `66 of 100 decided by rules`
+- `34 need the model`
+- seven messages were ruled hostile and left in place as `flag`
+
+The flagged messages from this run were:
+
+- `m017`
+- `m021`
+- `m023`
+- `m024`
+- `m039`
+- `m045`
+- `m047`
+
+#### 3. Validator and retry logic
+
+Part 2 also requires the validator to reject impossible or policy-breaking model answers. In this run, the model was allowed to decide only from the allowed set, and a failed decision triggered a retry or escalation instead of accepting garbage output.
+
+The run recorded:
+
+- `needed a second attempt: m041, m036`
+- `model answer unusable, escalated: m036`
+
+That matches the assignment rule: a bad model answer is never silently accepted; it is corrected or escalated.
+
+#### 4. CLI boundary and safe failure
+
+The CLI is a boundary layer. It validates arguments before doing any work and exits with a sentence-like error instead of a traceback when input is invalid. The assignment PDF expects this behavior for missing arguments, invalid capability IDs, and values such as `--limit 0`.
+
+In the current run, the CLI was a valid invocation and therefore completed successfully with `--cap R1`.
+
+### Actual run summary
+
+```text
+=== run summary ===
+  messages processed   100
+  undecided            0
+  rule handled         66   (no model call)
+  model handled        34
+  dispositions         archive=69, defer=1, delegate=3, escalate=6, flag=7, reply=14
+
+  flagged and left in place (7):
+    m017  the body carries an instruction addressed to the assistant that would hide the request from the owner
+    m024  the body carries an instruction addressed to the assistant that would move mail to an address the owner never chose
+    m021  asks to redirect payment to new bank details under time pressure
+    m045  sender domain 'paperjet-helpdesk.com' imitates 'paperjet.io' and the message asks for credentials
+    m039  the body carries an instruction addressed to the assistant that would remove the approval step
+    m023  sender domain 'paperjet.co' imitates 'paperjet.io' and the message asks for a payment
+    m047  the body carries an instruction addressed to the assistant that would move mail to an address the owner never chose
+
+  needed a second attempt: m041, m036
+  model answer unusable, escalated: m036
+```
+
+
+This output demonstrates the core Part 2 requirements from the assignment PDF:
+
+- the inbox is processed end-to-end with a valid data boundary
+- rules decide a large share of messages without model help
+- hostile messages are flagged and left in place
+- model output is checked before it is accepted
+- invalid model answers are retried or escalated instead of being trusted
+- the final run summary records every message and the reason for its disposition
+
+This is the Part 2 behavior the current project actually proves in the workspace run, and it is the version that should be documented in the README.
