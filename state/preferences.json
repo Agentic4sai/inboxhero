@@ -1,0 +1,7 @@
+{
+  "calendar_rule": {
+    "value": "do not schedule meetings before 11:00; offer 11:00 or later",
+    "source": "m041",
+    "updated_at": "2026-09-20T12:39:43.863469Z"
+  }
+}

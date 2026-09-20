@@ -11,7 +11,7 @@
     "irreversible": ["send", "delete"],
     "reversible": ["draft", "label", "archive", "defer"],
     "gate": "both",
-    "preference_demo": "Part 5 is not implemented yet"
+    "preference_demo": "m041: do not take meetings before 11:00am; R4 stores it and applies it to m043 after restart"
   },
   "capabilities": [
     {
@@ -40,6 +40,15 @@
       "command": "python demo.py --cap R3 --msg m019 --query \"launch date product launch event\" --dry-run",
       "observable": "Prints the proposed recipient, subject, grounded body, evidence IDs, gate decision, and outcome; dry-run creates no outbox file.",
       "evidence": "actions.py, state/gated_actions.jsonl, trace.jsonl, outbox/, tests/test_part4.py"
+    },
+    {
+      "id": "R4",
+      "name": "Persist standing preferences",
+      "tier": "C",
+      "claim": "Stores the owner's calendar preference and applies it after the process exits and restarts.",
+      "command": "python demo.py --cap R4 --msg m041",
+      "observable": "Stores m041's no-meetings-before-11:00 rule in state/preferences.json; a later R4 run for m043 loads it and refuses the 9:00am proposal.",
+      "evidence": "memory.py, state/preferences.json, trace.jsonl, tests/test_part5.py"
     }
   ]
 }

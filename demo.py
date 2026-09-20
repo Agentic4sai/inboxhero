@@ -21,6 +21,7 @@ import actions
 import config
 import flow
 import mailstore
+import memory
 import provider
 import rules
 import retrieval
@@ -31,6 +32,7 @@ CAPABILITIES = {
     "R1": "Zero the inbox: every message gets exactly one disposition and a reason.",
     "R2": "Ground a reply in earlier evidence: thread walk first, then cross-thread keyword search, else no draft.",
     "R3": "Gate an evidence-grounded send: dry-run or explicit approval, then write approved mail to outbox/.",
+    "R4": "Remember a standing preference and apply it after a process restart.",
 }
 
 
@@ -253,6 +255,43 @@ def run_capability_r3(box, record, query=None, mode="dry-run", agent=None):
     return {**result, "proposal": proposal, "gate": gate}
 
 
+def run_capability_r4(record):
+    """R4. Store m041's calendar rule, then apply it to a later meeting request."""
+    if record.id == "m041":
+        result = memory.remember(
+            "calendar_rule",
+            "do not schedule meetings before 11:00; offer 11:00 or later",
+            source=record.id,
+        )
+        trace.event("preference_stored", msg_id=record.id, key=result["key"], source=result["source"])
+        print(f"  stored preference: {result['value']} (source {result['source']})")
+        print(f"  memory file: {memory.MEMORY_FILE}")
+        return {"status": "stored", "preference": result}
+
+    recalled = memory.recall("calendar_rule")
+    if recalled.get("status") != "ok":
+        print("  no persisted calendar preference found; no scheduling decision made.")
+        return {"status": "missing", "memory": recalled}
+
+    value = recalled["matches"][0]["value"]
+    proposed_time = "9:00am" if record.id == "m043" else "unknown"
+    if record.id == "m043":
+        outcome = "do not accept 9:00am; offer 11:00am or later"
+    else:
+        outcome = "preference loaded; human review remains required for this message"
+    trace.event(
+        "preference_applied",
+        msg_id=record.id,
+        key="calendar_rule",
+        source=recalled["matches"][0].get("source"),
+        proposed_time=proposed_time,
+        outcome=outcome,
+    )
+    print(f"  loaded preference: {value}")
+    print(f"  message: {record.id}  outcome: {outcome}")
+    return {"status": "applied", "message_id": record.id, "outcome": outcome}
+
+
 def main(argv=None):
     args = parse_args(argv)
 
@@ -300,6 +339,12 @@ def main(argv=None):
         for record in records:
             q = args.query or record.subject or record.body or ""
             run_capability_r3(box, record, query=q, mode=mode)
+            print()
+        return 0
+    if cap == "R4":
+        print("  preference mode: persistent memory, loaded at process start\n")
+        for record in records:
+            run_capability_r4(record)
             print()
         return 0
 

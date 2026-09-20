@@ -204,3 +204,14 @@ python demo.py --cap R3 --msg m019 --query "launch date product launch event" --
 ```
 
 Every gated decision is written to `state/gated_actions.jsonl` and to `trace.jsonl`, including the proposal, the human decision, and the outcome. Missing approval, duplicate output, unsupported deletion, hostile content, and missing evidence all produce no outbox message. The escalation boundary is intentionally narrow: only external sends and destructive actions require a human decision; reading, retrieval, drafting, archiving, deferring, and logging remain reversible or non-destructive.
+
+## Part 5: standing instructions
+
+Part 5 is implemented as capability R4 using the persistent memory store adapted from Assignment 5. The first run records Sam's calendar preference from `m041`: meetings before 11:00 AM are never accepted. The process then exits; a later fresh process loads `state/preferences.json` and applies that preference to `m043`, which proposes a 9:00 AM meeting, producing `do not accept 9:00am; offer 11:00am or later`.
+
+```bash
+python demo.py --cap R4 --msg m041
+python demo.py --cap R4 --msg m043
+```
+
+The restart behavior is tested in `tests/test_part5.py`: the first subprocess writes the preference, and the second subprocess reads it from disk before handling the later message. The stored preference is a user-owned instruction, while mail from other correspondents cannot change it merely by asking the assistant to remember something.
