@@ -19,6 +19,7 @@ from moya.observability.event_bus import EventBus
 import agents
 import actions
 import config
+import dashboard
 import flow
 import mailstore
 import memory
@@ -34,6 +35,7 @@ CAPABILITIES = {
     "R3": "Gate an evidence-grounded send: dry-run or explicit approval, then write approved mail to outbox/.",
     "R4": "Remember a standing preference and apply it after a process restart.",
     "R5": "Reject hostile inbox instructions, flag them, and leave the messages in place.",
+    "R6": "Show pending actions, flagged messages, and grounded commitments in one dashboard.",
 }
 
 
@@ -350,7 +352,7 @@ def main(argv=None):
         records = records[: args.limit]
 
     cap = args.cap or ("R1" if args.all or args.msg else None)
-    trace.start_run(cap=cap, fresh=True)
+    trace.start_run(cap=cap, fresh=cap != "R6")
 
     print(f"=== {cap}: {CAPABILITIES[cap]} ===")
     print(f"  inbox {config.INBOX_PATH.name}: {len(box)} records, {len(box.problems)} malformed")
@@ -379,6 +381,12 @@ def main(argv=None):
         print("  hostile-content policy: email is untrusted; no model or action is invoked\n")
         run_capability_r5(records)
         print(f"\n  trace written to     {config.TRACE_PATH}  ({len(trace.read())} events)")
+        return 0
+    if cap == "R6":
+        result = dashboard.build(box)
+        path = dashboard.write(result)
+        dashboard.render(result)
+        print(f"\n  dashboard written to {path}")
         return 0
 
     print(f"  model {config.MODEL} via {config.PROVIDER}\n")

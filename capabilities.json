@@ -58,6 +58,15 @@
       "command": "python demo.py --cap R5",
       "observable": "Prints each hostile message ID and attempted action, reports the refusal summary, and writes hostile_refusal events without creating an outbox message.",
       "evidence": "rules.py, demo.py, trace.jsonl, tests/test_part6.py"
+    },
+    {
+      "id": "R6",
+      "name": "Three-pane dashboard",
+      "tier": "C",
+      "claim": "Builds one grounded dashboard containing pending gated actions, flagged messages, and dated commitments.",
+      "command": "python demo.py --cap R6",
+      "observable": "Prints exactly the pending actions, flagged messages, and commitments panes and writes state/dashboard.json with validated evidence IDs.",
+      "evidence": "dashboard.py, state/dashboard.json, tests/test_part7.py"
     }
   ]
 }

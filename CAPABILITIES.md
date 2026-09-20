@@ -57,10 +57,18 @@ Repository: https://github.com/Agentic4sai/inboxhero
 - **Observable:** Prints each hostile message ID and attempted action, reports the refusal summary, and writes `hostile_refusal` events to `trace.jsonl` without creating an outbox message.
 - **Evidence:** [rules.py](rules.py), [demo.py](demo.py), [tests/test_part6.py](tests/test_part6.py)
 
+### R6: Three-pane dashboard
+
+- **Tier:** C
+- **Claim:** Builds one grounded dashboard containing pending gated actions, flagged messages, and dated commitments.
+- **Command:** `python demo.py --cap R6`
+- **Observable:** Prints exactly the pending actions, flagged messages, and commitments panes and writes `state/dashboard.json`; commitment rows include validated message IDs, including multi-message launch and board entries.
+- **Evidence:** [dashboard.py](dashboard.py), [state/dashboard.json](state/dashboard.json), [tests/test_part7.py](tests/test_part7.py)
+
 ## Part 4 escalation boundary
 
 Only actions that communicate externally or destroy information require the gate. Reading mail, retrieving evidence, drafting, archiving, deferring, and logging are reversible or non-destructive, so asking for approval for each would create approval fatigue without protecting an irreversible boundary. `delete` is listed as irreversible for policy completeness but has no execution path; inboxHero refuses it and leaves the inbox unchanged.
 
 ## Current scope
 
-Parts 2, 3, 4, 5, and 6 are implemented as `R1`, `R2`, `R3`, `R4`, and `R5`. Part 7 still needs to be implemented before this manifest can claim the complete required-six submission.
+Parts 2, 3, 4, 5, 6, and 7 are implemented as `R1`, `R2`, `R3`, `R4`, `R5`, and `R6`.

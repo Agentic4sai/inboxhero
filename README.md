@@ -225,3 +225,13 @@ python demo.py --cap R5
 ```
 
 The run reports each hostile message ID and what the message attempted, writes a `hostile_refusal` event to `trace.jsonl`, and never calls the model or the irreversible-action gate. No hostile message can create an outbox file. The real inbox contains seven such messages: `m017`, `m021`, `m023`, `m024`, `m039`, `m045`, and `m047`. Legitimate standing instructions such as `m041` are not classified as hostile.
+
+## Part 7: the dashboard
+
+Part 7 is implemented as capability R6. It builds one view with exactly three panes: pending actions that still require human approval, flagged messages and what happened to them, and grounded commitments rendered as dated calendar rows.
+
+```bash
+python demo.py --cap R6
+```
+
+Commitments cite existing inbox message IDs. The dashboard includes multi-message entries for the launch and board work, so the date and the obligation are not treated as unsupported guesses. The result is written to `state/dashboard.json`; R6 preserves prior trace events so refusals from R5 remain visible.
