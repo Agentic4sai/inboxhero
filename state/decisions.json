@@ -125,7 +125,7 @@
   {
     "message_id": "m044",
     "disposition": "delegate",
-    "reason": "The message asks a colleague to perform an action regarding an invoice, which should be delegated to Priya.",
+    "reason": "The message asks a colleague to perform an action regarding an invoice approval.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -200,7 +200,7 @@
   {
     "message_id": "m008",
     "disposition": "escalate",
-    "reason": "The message asks for credentials, which requires escalation for security reasons.",
+    "reason": "The message asks for credentials, which must be escalated for security reasons.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -236,8 +236,8 @@
   },
   {
     "message_id": "m041",
-    "disposition": "reply",
-    "reason": "This message sets a standing rule for future scheduling that requires the owner to acknowledge and remember.",
+    "disposition": "defer",
+    "reason": "This sets a standing rule for future scheduling that needs to be remembered for later interactions.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -351,7 +351,7 @@
   {
     "message_id": "m026",
     "disposition": "archive",
-    "reason": "This message is a kickoff announcement that requires no direct action or answer from the owner.",
+    "reason": "This message is a kickoff announcement that does not ask a direct question or require immediate action.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -376,7 +376,7 @@
   {
     "message_id": "m028",
     "disposition": "archive",
-    "reason": "This message confirms ownership of tasks with a stated deadline, requiring no action from the owner.",
+    "reason": "This message confirms ownership of tasks with a stated deadline, requiring no immediate action from the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -439,7 +439,7 @@
   {
     "message_id": "m033",
     "disposition": "reply",
-    "reason": "The sender is asking for comments on the email blast draft in the shared document.",
+    "reason": "The sender is asking for comments on the email blast draft, which requires the owner's input.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -535,7 +535,7 @@
   {
     "message_id": "m034",
     "disposition": "archive",
-    "reason": "This message confirms an action is being taken and requires no response from the owner.",
+    "reason": "This message is an update stating assets are being uploaded and requires no action from the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -571,7 +571,7 @@
   {
     "message_id": "m038",
     "disposition": "reply",
-    "reason": "The message confirms a meeting time and requires confirmation or acknowledgment from the owner.",
+    "reason": "The message confirms a meeting time and requires a response to acknowledge or confirm attendance.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -621,7 +621,7 @@
   {
     "message_id": "m051",
     "disposition": "reply",
-    "reason": "The sender is asking the owner to meet for coffee next week, requiring a response.",
+    "reason": "The sender is asking to meet for coffee and catching up, which requires a response.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -657,7 +657,7 @@
   {
     "message_id": "m010",
     "disposition": "reply",
-    "reason": "The sender is asking for availability to meet, requiring a direct answer from Sam.",
+    "reason": "The sender is asking for a meeting time and needs a confirmation from the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -694,7 +694,7 @@
   {
     "message_id": "m040",
     "disposition": "delegate",
-    "reason": "The request involves preparing a board deck, which should be handed off to a colleague for work.",
+    "reason": "The request involves preparing a board deck, which should be handed off to a colleague for completion.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -719,7 +719,7 @@
   {
     "message_id": "m117",
     "disposition": "archive",
-    "reason": "This is a routine reminder with no direct question requiring the owner's immediate answer.",
+    "reason": "This is a routine reminder with no direct question asked of the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -756,7 +756,7 @@
   {
     "message_id": "m035",
     "disposition": "archive",
-    "reason": "This message is a status update confirming a successful deployment and requires no action from the owner.",
+    "reason": "This message is a status update confirming a successful deploy and requires no action from the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -920,7 +920,7 @@
   {
     "message_id": "m013",
     "disposition": "reply",
-    "reason": "The sender asks to reschedule a meeting, requiring the owner to confirm availability.",
+    "reason": "The sender is asking to reschedule a meeting time, which requires the owner to respond.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -996,7 +996,7 @@
   {
     "message_id": "m012",
     "disposition": "reply",
-    "reason": "The sender is asking if the owner has sorted out something discussed previously and needs an answer.",
+    "reason": "The sender is asking if the owner has sorted out a specific item before a call.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -1096,7 +1096,7 @@
   {
     "message_id": "m016",
     "disposition": "reply",
-    "reason": "The sender is asking if a specific time slot on Wednesday works for the owner.",
+    "reason": "The sender proposes a specific time and asks if it works for the owner's schedule.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -1173,7 +1173,7 @@
   {
     "message_id": "m048",
     "disposition": "reply",
-    "reason": "The sender asks the owner to review and flag corrections on the board minutes by Monday.",
+    "reason": "The sender asks the owner to review and flag corrections by a specific date.",
     "path": "model",
     "rule": "abstain",
     "flags": [

@@ -404,6 +404,11 @@ class CliTests(unittest.TestCase):
         self.assertEqual(args.cap, "R1")
         self.assertEqual(args.limit, 5)
 
+    def test_r2_arguments_parse(self):
+        args = demo.parse_args(["--cap", "r2", "--msg", "m019"])
+        self.assertEqual(args.cap, "R2")
+        self.assertEqual(args.msg, "m019")
+
     def test_bad_arguments_exit_with_status_two(self):
         for argv in ([], ["--cap", "Z9"], ["--cap", "R1", "--limit", "0"]):
             with self.assertRaises(SystemExit) as caught:

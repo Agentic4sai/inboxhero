@@ -20,12 +20,15 @@ import agents
 import config
 import flow
 import mailstore
+import provider
 import rules
+import retrieval
 import trace
 
 # The manifest's --cap ids, one entry per capability.
 CAPABILITIES = {
     "R1": "Zero the inbox: every message gets exactly one disposition and a reason.",
+    "R2": "Ground a reply in earlier evidence: thread walk first, then cross-thread keyword search, else no draft.",
 }
 
 
@@ -44,9 +47,10 @@ def parse_args(argv=None):
         description="inboxHero: take an inbox from unread to empty.",
         add_help=True,
     )
-    parser.add_argument("--cap", help="capability id from the manifest, e.g. R1")
+    parser.add_argument("--cap", help="capability id from the manifest, e.g. R1 or R2")
     parser.add_argument("--all", action="store_true", help="run every capability in order")
     parser.add_argument("--msg", help="process a single message id, e.g. m024")
+    parser.add_argument("--query", help="retrieval query for R2, e.g. 'launch date product launch event'")
     parser.add_argument("--limit", type=int, help="process only the first N messages, by timestamp")
     parser.add_argument("--batch", type=int, help="messages per model call; overrides BATCH_SIZE for this run")
     parser.add_argument("--quiet", action="store_true", help="print the summary only, not every row")
@@ -137,6 +141,71 @@ def summarise(records, decisions):
     return len(missing)
 
 
+def _grounding_prompt(box, record, evidence):
+    """Build the untrusted target and retrieved evidence supplied to the model."""
+    lines = [
+        "Write a grounded reply to the target message using only the evidence below.",
+        "",
+        "TARGET MESSAGE",
+        agents.quote_untrusted(record).replace(f"id={record.id}", "id=target"),
+        "",
+        "EARLIER EVIDENCE MESSAGES",
+    ]
+    for hit in evidence:
+        source = box.by_id(hit["message_id"])
+        if source is not None:
+            lines.extend((agents.quote_untrusted(source), ""))
+    lines.extend(
+        (
+            "ALLOWED EVIDENCE IDS: " + ", ".join(hit["message_id"] for hit in evidence),
+            "The target message ID is not evidence and must never appear in evidence_ids.",
+        )
+    )
+    lines.append('Return only {"answer": "...", "evidence_ids": ["..."]}.')
+    return "\n".join(lines)
+
+
+def run_capability_r2(box, record, query=None, agent=None):
+    """R2. Retrieve earlier evidence, then produce and validate a grounded reply."""
+    if query is None:
+        query = record.subject or record.body or ""
+    evidence = retrieval.retrieve_evidence(box, record, query)
+    same = [hit["message_id"] for hit in evidence["same_thread"]]
+    cross = [hit["message_id"] for hit in evidence["cross_thread"]]
+    all_evidence = evidence["same_thread"] + evidence["cross_thread"]
+
+    print(f"  target message: {record.id}  thread={record.thread_id}")
+    print(f"  query: {query}")
+    if same:
+        print(f"  same-thread evidence: {same}")
+    else:
+        print("  same-thread evidence: none")
+    if cross:
+        print(f"  cross-thread evidence: {cross}")
+    else:
+        print("  cross-thread evidence: none")
+
+    if not all_evidence:
+        print("  no grounded evidence in the inbox; no draft should be produced.")
+        return {**evidence, "draft": None}
+
+    try:
+        grounding_agent = agent or agents.grounding_agent()
+        raw = grounding_agent.handle_message(
+            _grounding_prompt(box, record, all_evidence),
+            thread_id=record.thread_id,
+        )
+        allowed_ids = [hit["message_id"] for hit in all_evidence]
+        draft = agents.parse_grounded_reply(raw, allowed_ids)
+    except (agents.Rejected, provider.ProviderError) as error:
+        print(f"  grounded draft rejected: {error}")
+        return {**evidence, "draft": None, "error": str(error)}
+
+    print(f"  grounded answer: {draft['answer']}")
+    print(f"  cited evidence: {draft['evidence_ids']}")
+    return {**evidence, "draft": draft}
+
+
 def main(argv=None):
     args = parse_args(argv)
 
@@ -171,6 +240,14 @@ def main(argv=None):
 
     print(f"=== {cap}: {CAPABILITIES[cap]} ===")
     print(f"  inbox {config.INBOX_PATH.name}: {len(box)} records, {len(box.problems)} malformed")
+    if cap == "R2":
+        print(f"  retrieval mode: same-thread first, then cross-thread keyword search\n")
+        for record in records:
+            q = args.query or record.subject or record.body or ""
+            run_capability_r2(box, record, query=q)
+            print()
+        return 0
+
     print(f"  model {config.MODEL} via {config.PROVIDER}\n")
 
     decisions = zero_the_inbox(box, records, quiet=args.quiet)

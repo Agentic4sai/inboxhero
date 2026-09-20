@@ -131,3 +131,54 @@ This output demonstrates the core Part 2 requirements from the assignment PDF:
 - the final run summary records every message and the reason for its disposition
 
 This is the Part 2 behavior the current project actually proves in the workspace run, and it is the version that should be documented in the README.
+
+## Part 3: answering properly
+
+Part 3 is the evidence-grounding layer. Some messages can only be answered using an earlier message, either in the same thread or in another one. The system therefore does not draft from plausibility alone; it searches the inbox for real supporting evidence and uses only that evidence when preparing a reply.
+
+### Retrieval strategy
+
+The retrieval strategy follows the assignment requirement in two stages:
+
+1. First, walk the current message's thread and look for earlier messages in that same thread.
+2. If the needed fact is not present there, perform a mailbox-wide keyword search to find a relevant earlier message from another thread.
+
+This gives the model the exact evidence it may rely on, rather than letting it invent a detail that never appeared in the inbox.
+
+### Grounding rule
+
+Every draft records the message IDs it drew on, and those IDs are checked against the mail store before the draft is accepted. This is the key correctness condition for Part 3:
+
+- a message ID must exist in the inbox
+- it must be an earlier message that actually contains the fact
+- the fact must match what was written in the inbox, not a plausible guess
+
+If the draft would cite a message the system never read, or invent a fact that is not in the inbox, the answer fails this part.
+
+### Example behavior from the workspace
+
+The project demonstrates the required pattern on real inbox data:
+
+- same-thread evidence: a staging or launch-related question can often find the needed detail in earlier messages from its own thread
+- cross-thread evidence: when the fact is outside the thread, the keyword search finds an earlier message in another thread that contains the relevant fact
+- no evidence: if the inbox does not contain the fact, the system says so and drafts nothing
+
+### Manifest and validation
+
+R2 is the runnable Part 3 capability:
+
+```bash
+python demo.py --cap R2 --msg m019 --query "launch date product launch event"
+```
+
+It retrieves evidence, asks the model to draft only from those earlier messages, and validates every cited ID against the retrieval result. The retrieval method is intentionally named in code and tested directly. The assignment expects the retrieval strategy to be explicit and auditable, not implicit. The validation therefore checks:
+
+- same-thread search works when the fact is in the thread
+- cross-thread keyword search works when the fact is elsewhere in the mailbox
+- missing or nonsense queries return empty evidence instead of inventing a fact
+- a grounded answer cites only retrieved message IDs
+- an answer that cites an unreturned message is rejected
+
+When no evidence exists, R2 prints `no grounded evidence in the inbox; no draft should be produced.` It can be run across the whole mailbox with `python demo.py --cap R2`, or limited with `--limit`.
+
+This is the Part 3 behavior the current workspace actually proves and is the version documented here.
