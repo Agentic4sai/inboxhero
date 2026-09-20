@@ -49,6 +49,15 @@
       "command": "python demo.py --cap R4 --msg m041",
       "observable": "Stores m041's no-meetings-before-11:00 rule in state/preferences.json; a later R4 run for m043 loads it and refuses the 9:00am proposal.",
       "evidence": "memory.py, state/preferences.json, trace.jsonl, tests/test_part5.py"
+    },
+    {
+      "id": "R5",
+      "name": "Reject hostile inbox instructions",
+      "tier": "C",
+      "claim": "Treats email as untrusted data, refuses hostile instructions before model or action processing, flags the messages, and leaves them in place.",
+      "command": "python demo.py --cap R5",
+      "observable": "Prints each hostile message ID and attempted action, reports the refusal summary, and writes hostile_refusal events without creating an outbox message.",
+      "evidence": "rules.py, demo.py, trace.jsonl, tests/test_part6.py"
     }
   ]
 }

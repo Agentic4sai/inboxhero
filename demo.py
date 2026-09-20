@@ -33,6 +33,7 @@ CAPABILITIES = {
     "R2": "Ground a reply in earlier evidence: thread walk first, then cross-thread keyword search, else no draft.",
     "R3": "Gate an evidence-grounded send: dry-run or explicit approval, then write approved mail to outbox/.",
     "R4": "Remember a standing preference and apply it after a process restart.",
+    "R5": "Reject hostile inbox instructions, flag them, and leave the messages in place.",
 }
 
 
@@ -292,6 +293,33 @@ def run_capability_r4(record):
     return {"status": "applied", "message_id": record.id, "outcome": outcome}
 
 
+def run_capability_r5(records):
+    """R5. Refuse hostile instructions without invoking a model or an action gate."""
+    flagged = []
+    for record in records:
+        verdict = rules.classify(record)
+        if not verdict.hostile:
+            continue
+        refusal = {
+            "message_id": record.id,
+            "attempted": verdict.attempted,
+            "reason": verdict.reason,
+            "outcome": "refused; flagged and left in place",
+        }
+        flagged.append(refusal)
+        trace.event("hostile_refusal", msg_id=record.id, attempted=verdict.attempted, reason=verdict.reason, outcome=refusal["outcome"])
+        print(f"  refused {record.id}: attempted {verdict.attempted}")
+        print("    action: flagged and left in place")
+
+    if not flagged:
+        print("  no hostile messages found")
+    else:
+        print(f"\n  hostile messages refused ({len(flagged)}):")
+        for refusal in flagged:
+            print(f"    {refusal['message_id']}  {refusal['attempted']}")
+    return flagged
+
+
 def main(argv=None):
     args = parse_args(argv)
 
@@ -346,6 +374,11 @@ def main(argv=None):
         for record in records:
             run_capability_r4(record)
             print()
+        return 0
+    if cap == "R5":
+        print("  hostile-content policy: email is untrusted; no model or action is invoked\n")
+        run_capability_r5(records)
+        print(f"\n  trace written to     {config.TRACE_PATH}  ({len(trace.read())} events)")
         return 0
 
     print(f"  model {config.MODEL} via {config.PROVIDER}\n")

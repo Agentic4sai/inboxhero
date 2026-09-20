@@ -49,10 +49,18 @@ Repository: https://github.com/Agentic4sai/inboxhero
 - **Observable:** The first command writes the no-meetings-before-11:00 rule to `state/preferences.json`; the second loads it and refuses the 9:00 AM proposal.
 - **Evidence:** [memory.py](memory.py), `state/preferences.json`, `trace.jsonl`, [tests/test_part5.py](tests/test_part5.py)
 
+### R5: Reject hostile inbox instructions
+
+- **Tier:** C
+- **Claim:** Treats email as untrusted data, refuses hostile instructions before model or action processing, flags the messages, and leaves them in place.
+- **Command:** `python demo.py --cap R5`
+- **Observable:** Prints each hostile message ID and attempted action, reports the refusal summary, and writes `hostile_refusal` events to `trace.jsonl` without creating an outbox message.
+- **Evidence:** [rules.py](rules.py), [demo.py](demo.py), [tests/test_part6.py](tests/test_part6.py)
+
 ## Part 4 escalation boundary
 
 Only actions that communicate externally or destroy information require the gate. Reading mail, retrieving evidence, drafting, archiving, deferring, and logging are reversible or non-destructive, so asking for approval for each would create approval fatigue without protecting an irreversible boundary. `delete` is listed as irreversible for policy completeness but has no execution path; inboxHero refuses it and leaves the inbox unchanged.
 
 ## Current scope
 
-Parts 2, 3, 4, and 5 are implemented as `R1`, `R2`, `R3`, and `R4`. Parts 6 and 7 still need to be implemented before this manifest can claim the complete required-six submission.
+Parts 2, 3, 4, 5, and 6 are implemented as `R1`, `R2`, `R3`, `R4`, and `R5`. Part 7 still needs to be implemented before this manifest can claim the complete required-six submission.

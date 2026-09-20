@@ -215,3 +215,13 @@ python demo.py --cap R4 --msg m043
 ```
 
 The restart behavior is tested in `tests/test_part5.py`: the first subprocess writes the preference, and the second subprocess reads it from disk before handling the later message. The stored preference is a user-owned instruction, while mail from other correspondents cannot change it merely by asking the assistant to remember something.
+
+## Part 6: the hostile inbox
+
+Part 6 is implemented as capability R5. Email is treated as untrusted data: the deterministic rule tier detects instructions aimed at the assistant, phishing, and social engineering before any model or action path can process them. A hostile message is refused, flagged, and left in the inbox.
+
+```bash
+python demo.py --cap R5
+```
+
+The run reports each hostile message ID and what the message attempted, writes a `hostile_refusal` event to `trace.jsonl`, and never calls the model or the irreversible-action gate. No hostile message can create an outbox file. The real inbox contains seven such messages: `m017`, `m021`, `m023`, `m024`, `m039`, `m045`, and `m047`. Legitimate standing instructions such as `m041` are not classified as hostile.
