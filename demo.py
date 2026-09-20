@@ -17,6 +17,7 @@ import sys
 from moya.observability.event_bus import EventBus
 
 import agents
+import actions
 import config
 import flow
 import mailstore
@@ -29,6 +30,7 @@ import trace
 CAPABILITIES = {
     "R1": "Zero the inbox: every message gets exactly one disposition and a reason.",
     "R2": "Ground a reply in earlier evidence: thread walk first, then cross-thread keyword search, else no draft.",
+    "R3": "Gate an evidence-grounded send: dry-run or explicit approval, then write approved mail to outbox/.",
 }
 
 
@@ -54,6 +56,8 @@ def parse_args(argv=None):
     parser.add_argument("--limit", type=int, help="process only the first N messages, by timestamp")
     parser.add_argument("--batch", type=int, help="messages per model call; overrides BATCH_SIZE for this run")
     parser.add_argument("--quiet", action="store_true", help="print the summary only, not every row")
+    parser.add_argument("--dry-run", action="store_true", help="show an irreversible action without writing it")
+    parser.add_argument("--approve", action="store_true", help="approve an irreversible action and write it to outbox/")
     args = parser.parse_args(argv)
 
     if not (args.cap or args.all or args.msg):
@@ -66,6 +70,12 @@ def parse_args(argv=None):
         raise Usage(f"--limit must be 1 or more, got {args.limit}")
     if args.batch is not None and args.batch < 1:
         raise Usage(f"--batch must be 1 or more, got {args.batch}")
+    if args.dry_run and args.approve:
+        raise Usage("--dry-run and --approve cannot be used together")
+    if (args.dry_run or args.approve) and args.cap not in ("R3", None):
+        raise Usage("--dry-run and --approve are only valid with --cap R3")
+    if args.approve and not args.msg:
+        raise Usage("--approve requires --msg so each irreversible action is approved separately")
     return args
 
 
@@ -158,7 +168,8 @@ def _grounding_prompt(box, record, evidence):
     lines.extend(
         (
             "ALLOWED EVIDENCE IDS: " + ", ".join(hit["message_id"] for hit in evidence),
-            "The target message ID is not evidence and must never appear in evidence_ids.",
+            "The target section is context only. Never cite the target marker or target message ID.",
+            "Every evidence_ids item must be copied exactly from ALLOWED EVIDENCE IDS above.",
         )
     )
     lines.append('Return only {"answer": "...", "evidence_ids": ["..."]}.')
@@ -206,6 +217,42 @@ def run_capability_r2(box, record, query=None, agent=None):
     return {**evidence, "draft": draft}
 
 
+def run_capability_r3(box, record, query=None, mode="dry-run", agent=None):
+    """R3. Prepare one grounded send and put it behind the action gate."""
+    verdict = rules.classify(record)
+    if verdict.hostile:
+        print(f"  refused hostile message {record.id}; attempted action: {verdict.attempted}")
+        proposal = actions.ActionProposal(
+            record.id,
+            "send",
+            record.sender,
+            f"Re: {record.subject}",
+            "",
+            reason=verdict.reason,
+        )
+        gate = actions.gate(proposal, "missing")
+        return {"draft": None, "gate": gate, "refused": verdict.attempted}
+    result = run_capability_r2(box, record, query=query, agent=agent)
+    draft = result.get("draft")
+    if not draft:
+        return {**result, "gate": None}
+    proposal = actions.ActionProposal(
+        message_id=record.id,
+        action="send",
+        to=record.sender,
+        subject=f"Re: {record.subject}" if not record.subject.lower().startswith("re:") else record.subject,
+        body=draft["answer"],
+        evidence_ids=tuple(draft["evidence_ids"]),
+        reason="sending is irreversible and requires a human decision",
+    )
+    print(f"  proposed send to: {proposal.to}")
+    print(f"  proposed subject: {proposal.subject}")
+    print(f"  gate mode: {mode}")
+    gate = actions.gate(proposal, mode)
+    print(f"  gate outcome: {gate['outcome']}")
+    return {**result, "proposal": proposal, "gate": gate}
+
+
 def main(argv=None):
     args = parse_args(argv)
 
@@ -245,6 +292,14 @@ def main(argv=None):
         for record in records:
             q = args.query or record.subject or record.body or ""
             run_capability_r2(box, record, query=q)
+            print()
+        return 0
+    if cap == "R3":
+        mode = "approve" if args.approve else "dry-run" if args.dry_run else "missing"
+        print("  action policy: send and delete are irreversible; this run uses a gate\n")
+        for record in records:
+            q = args.query or record.subject or record.body or ""
+            run_capability_r3(box, record, query=q, mode=mode)
             print()
         return 0
 

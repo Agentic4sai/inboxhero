@@ -182,3 +182,25 @@ It retrieves evidence, asks the model to draft only from those earlier messages,
 When no evidence exists, R2 prints `no grounded evidence in the inbox; no draft should be produced.` It can be run across the whole mailbox with `python demo.py --cap R2`, or limited with `--limit`.
 
 This is the Part 3 behavior the current workspace actually proves and is the version documented here.
+
+## Part 4: the things you cannot undo
+
+Part 4 is implemented as capability R3. The action policy separates work that can be undone from work that changes the outside world:
+
+- `draft`, `label`, `archive`, and `defer` are reversible or non-destructive actions.
+- `send` is irreversible because a message written to the outbox represents an external communication that cannot be unsent.
+- `delete` is classified as irreversible, but is deliberately unsupported. inboxHero never deletes an inbox record.
+
+R3 generates a grounded reply proposal and sends it through the action gate. A dry run shows the recipient, subject, body, evidence IDs, and outcome without creating an outbox file:
+
+```bash
+python demo.py --cap R3 --msg m019 --query "launch date product launch event" --dry-run
+```
+
+An explicit approval writes exactly one structured message to `outbox/m019.json` and nowhere else:
+
+```bash
+python demo.py --cap R3 --msg m019 --query "launch date product launch event" --approve
+```
+
+Every gated decision is written to `state/gated_actions.jsonl` and to `trace.jsonl`, including the proposal, the human decision, and the outcome. Missing approval, duplicate output, unsupported deletion, hostile content, and missing evidence all produce no outbox message. The escalation boundary is intentionally narrow: only external sends and destructive actions require a human decision; reading, retrieval, drafting, archiving, deferring, and logging remain reversible or non-destructive.

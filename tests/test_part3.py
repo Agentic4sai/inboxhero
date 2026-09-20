@@ -46,7 +46,7 @@ class Part3Tests(unittest.TestCase):
         message = self.box.by_id("m019")
         evidence = retrieve_evidence(self.box, message, "launch date product launch event")
         ids = [hit["message_id"] for hit in evidence["cross_thread"]]
-        self.assertTrue(any(msg_id in ids for msg_id in ("m026", "m036", "m030")))
+        self.assertTrue(any(msg_id in ids for msg_id in ("m026", "m036")))
 
     def test_retrieval_rejects_missing_evidence(self):
         message = self.box.by_id("m019")
@@ -58,7 +58,7 @@ class Part3Tests(unittest.TestCase):
         class StubAgent:
             def handle_message(self, prompt, **kwargs):
                 self.prompt = prompt
-                return '{"answer":"The launch is on September 20.","evidence_ids":["m030"]}'
+                return '{"answer":"The launch is on September 20.","evidence_ids":["m026","m036"]}'
 
         message = self.box.by_id("m019")
         result = demo.run_capability_r2(
@@ -67,7 +67,7 @@ class Part3Tests(unittest.TestCase):
             query="launch date product launch event",
             agent=StubAgent(),
         )
-        self.assertEqual(result["draft"]["evidence_ids"], ["m030"])
+        self.assertEqual(result["draft"]["evidence_ids"], ["m026", "m036"])
 
     def test_r2_rejects_a_citation_not_returned_by_retrieval(self):
         class StubAgent:

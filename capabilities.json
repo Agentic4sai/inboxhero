@@ -1,0 +1,45 @@
+{
+  "student": "Sai Kiran",
+  "repo": "https://github.com/Agentic4sai/inboxhero",
+  "system": {
+    "framework": "Moya",
+    "model": "gemma4:e4b via Ollama; developed against a local Ollama model",
+    "messages_processed": 100,
+    "rule_handled": 66,
+    "dispositions": ["reply", "archive", "defer", "delegate", "escalate", "flag"],
+    "retrieval": "thread-walk then keyword",
+    "irreversible": ["send", "delete"],
+    "reversible": ["draft", "label", "archive", "defer"],
+    "gate": "both",
+    "preference_demo": "Part 5 is not implemented yet"
+  },
+  "capabilities": [
+    {
+      "id": "R1",
+      "name": "Zero the inbox",
+      "tier": "B",
+      "claim": "Assigns every inbox record exactly one disposition and reason, routing obvious messages through rules before the model.",
+      "command": "python demo.py --cap R1",
+      "observable": "Prints the rule/model split, every disposition, the final summary, and writes state/decisions.json plus trace.jsonl.",
+      "evidence": "state/decisions.json, trace.jsonl, tests/test_part2.py"
+    },
+    {
+      "id": "R2",
+      "name": "Answer with evidence",
+      "tier": "B",
+      "claim": "Retrieves earlier same-thread evidence first, then cross-thread keyword evidence, and drafts only with authorized citations.",
+      "command": "python demo.py --cap R2 --msg m019 --query \"launch date product launch event\"",
+      "observable": "Prints retrieved message IDs and either a grounded draft with evidence_ids or a no-evidence refusal.",
+      "evidence": "retrieval.py, trace.jsonl, tests/test_part3.py"
+    },
+    {
+      "id": "R3",
+      "name": "Gate irreversible actions",
+      "tier": "C",
+      "claim": "Proposes an evidence-grounded send, supports dry-run and explicit approval, writes approved mail to outbox, and logs every gate decision.",
+      "command": "python demo.py --cap R3 --msg m019 --query \"launch date product launch event\" --dry-run",
+      "observable": "Prints the proposed recipient, subject, grounded body, evidence IDs, gate decision, and outcome; dry-run creates no outbox file.",
+      "evidence": "actions.py, state/gated_actions.jsonl, trace.jsonl, outbox/, tests/test_part4.py"
+    }
+  ]
+}
