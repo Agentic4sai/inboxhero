@@ -235,3 +235,25 @@ python demo.py --cap R6
 ```
 
 Commitments cite existing inbox message IDs. The dashboard includes multi-message entries for the launch and board work, so the date and the obligation are not treated as unsupported guesses. The result is written to `state/dashboard.json`; R6 preserves prior trace events so refusals from R5 remain visible.
+
+## Part 8: custom capabilities
+
+Part 8 adds three independently runnable capabilities across the required tiers. X1 is a Tier A lookup that lists unread mail from an optional sender without a model call:
+
+```bash
+python demo.py --cap X1 --sender priya@paperjet.io
+```
+
+X2 is a Tier B thread analysis that walks one complete thread in timestamp order and reports only question candidates grounded in that thread:
+
+```bash
+python demo.py --cap X2 --msg m030
+```
+
+X3 is a Tier C planning capability that finds owner messages with no later reply after three days, prepares follow-up drafts, and places each external send behind the existing action gate:
+
+```bash
+python demo.py --cap X3 --dry-run
+```
+
+The real inbox demonstrates the boundary: `m044` is proposed because it has no later reply, while `m003` is excluded because the `t-api` thread received replies and `m041` is excluded because it was sent to the owner. X3 records gate decisions in `state/gated_actions.jsonl`; `--approve` may be used when the human explicitly wants to write approved proposals to `outbox/`.

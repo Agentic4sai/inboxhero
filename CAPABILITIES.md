@@ -65,10 +65,34 @@ Repository: https://github.com/Agentic4sai/inboxhero
 - **Observable:** Prints exactly the pending actions, flagged messages, and commitments panes and writes `state/dashboard.json`; commitment rows include validated message IDs, including multi-message launch and board entries.
 - **Evidence:** [dashboard.py](dashboard.py), [state/dashboard.json](state/dashboard.json), [tests/test_part7.py](tests/test_part7.py)
 
+### X1: Unread sender lookup
+
+- **Tier:** A
+- **Claim:** Lists unread messages from an optional sender using the validated mail store.
+- **Command:** `python demo.py --cap X1 --sender priya@paperjet.io`
+- **Observable:** Prints JSON rows with message ID, sender, timestamp, subject, and thread ID without a model call.
+- **Evidence:** [part8.py](part8.py), [tests/test_part8.py](tests/test_part8.py)
+
+### X2: Thread open-question analysis
+
+- **Tier:** B
+- **Claim:** Walks a complete thread in timestamp order and reports question candidates with their source message IDs.
+- **Command:** `python demo.py --cap X2 --msg m030`
+- **Observable:** Prints the ordered thread messages and only question-mark-terminated candidates from that thread.
+- **Evidence:** [part8.py](part8.py), [mailstore.py](mailstore.py), [tests/test_part8.py](tests/test_part8.py)
+
+### X3: Gated follow-up planning
+
+- **Tier:** C
+- **Claim:** Finds unanswered owner messages older than three days, drafts follow-ups, and sends each proposal through the existing human action gate.
+- **Command:** `python demo.py --cap X3 --dry-run`
+- **Observable:** Prints JSON proposals with days waiting and gate outcomes; dry-run writes no outbox message and records each decision.
+- **Evidence:** [part8.py](part8.py), [actions.py](actions.py), [tests/test_part8.py](tests/test_part8.py)
+
 ## Part 4 escalation boundary
 
 Only actions that communicate externally or destroy information require the gate. Reading mail, retrieving evidence, drafting, archiving, deferring, and logging are reversible or non-destructive, so asking for approval for each would create approval fatigue without protecting an irreversible boundary. `delete` is listed as irreversible for policy completeness but has no execution path; inboxHero refuses it and leaves the inbox unchanged.
 
 ## Current scope
 
-Parts 2, 3, 4, 5, 6, and 7 are implemented as `R1`, `R2`, `R3`, `R4`, `R5`, and `R6`.
+Parts 2 through 7 are implemented as `R1` through `R6`. Part 8 adds `X1`, `X2`, and `X3`, covering Tiers A, B, and C respectively.

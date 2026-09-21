@@ -67,6 +67,33 @@
       "command": "python demo.py --cap R6",
       "observable": "Prints exactly the pending actions, flagged messages, and commitments panes and writes state/dashboard.json with validated evidence IDs.",
       "evidence": "dashboard.py, state/dashboard.json, tests/test_part7.py"
+    },
+    {
+      "id": "X1",
+      "name": "Unread sender lookup",
+      "tier": "A",
+      "claim": "Lists unread messages from an optional sender using the validated mail store.",
+      "command": "python demo.py --cap X1 --sender priya@paperjet.io",
+      "observable": "Prints JSON rows with message ID, sender, timestamp, subject, and thread ID without a model call.",
+      "evidence": "part8.py, tests/test_part8.py"
+    },
+    {
+      "id": "X2",
+      "name": "Thread open-question analysis",
+      "tier": "B",
+      "claim": "Walks a complete thread in timestamp order and reports question candidates with their source message IDs.",
+      "command": "python demo.py --cap X2 --msg m030",
+      "observable": "Prints the ordered thread messages and only question-mark-terminated candidates from that thread.",
+      "evidence": "part8.py, mailstore.py, tests/test_part8.py"
+    },
+    {
+      "id": "X3",
+      "name": "Gated follow-up planning",
+      "tier": "C",
+      "claim": "Finds unanswered owner messages older than three days, drafts follow-ups, and sends each proposal through the existing human action gate.",
+      "command": "python demo.py --cap X3 --dry-run",
+      "observable": "Prints JSON proposals with days waiting and gate outcomes; dry-run writes no outbox message and records each decision.",
+      "evidence": "part8.py, actions.py, state/gated_actions.jsonl, tests/test_part8.py"
     }
   ]
 }

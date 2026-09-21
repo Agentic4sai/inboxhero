@@ -24,6 +24,7 @@ import flow
 import mailstore
 import memory
 import provider
+import part8
 import rules
 import retrieval
 import trace
@@ -36,6 +37,9 @@ CAPABILITIES = {
     "R4": "Remember a standing preference and apply it after a process restart.",
     "R5": "Reject hostile inbox instructions, flag them, and leave the messages in place.",
     "R6": "Show pending actions, flagged messages, and grounded commitments in one dashboard.",
+    "X1": "List unread messages from a sender as a reproducible JSON lookup.",
+    "X2": "Inspect a complete thread and expose its grounded open-question candidates.",
+    "X3": "Find unanswered owner messages and prepare human-gated follow-up proposals.",
 }
 
 
@@ -63,6 +67,7 @@ def parse_args(argv=None):
     parser.add_argument("--quiet", action="store_true", help="print the summary only, not every row")
     parser.add_argument("--dry-run", action="store_true", help="show an irreversible action without writing it")
     parser.add_argument("--approve", action="store_true", help="approve an irreversible action and write it to outbox/")
+    parser.add_argument("--sender", help="sender address filter for X1")
     args = parser.parse_args(argv)
 
     if not (args.cap or args.all or args.msg):
@@ -77,10 +82,15 @@ def parse_args(argv=None):
         raise Usage(f"--batch must be 1 or more, got {args.batch}")
     if args.dry_run and args.approve:
         raise Usage("--dry-run and --approve cannot be used together")
-    if (args.dry_run or args.approve) and args.cap not in ("R3", None):
-        raise Usage("--dry-run and --approve are only valid with --cap R3")
+    if (args.dry_run or args.approve) and args.cap not in ("R3", "X3", None):
+        raise Usage("--dry-run and --approve are only valid with --cap R3 or X3")
     if args.approve and not args.msg:
-        raise Usage("--approve requires --msg so each irreversible action is approved separately")
+        if args.cap != "X3":
+            raise Usage("--approve requires --msg so each irreversible action is approved separately")
+    if args.sender and args.cap != "X1":
+        raise Usage("--sender is only valid with --cap X1")
+    if args.cap == "X2" and not args.msg:
+        raise Usage("--cap X2 requires --msg so one thread can be inspected")
     return args
 
 
@@ -387,6 +397,16 @@ def main(argv=None):
         path = dashboard.write(result)
         dashboard.render(result)
         print(f"\n  dashboard written to {path}")
+        return 0
+    if cap == "X1":
+        part8.print_json(part8.unread_from(box, args.sender))
+        return 0
+    if cap == "X2":
+        part8.print_json(part8.thread_open_questions(box, records[0]))
+        return 0
+    if cap == "X3":
+        mode = "approve" if args.approve else "dry-run"
+        part8.print_json(part8.run_follow_ups(box, mode=mode))
         return 0
 
     print(f"  model {config.MODEL} via {config.PROVIDER}\n")
