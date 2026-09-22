@@ -38,7 +38,7 @@
   {
     "message_id": "m003",
     "disposition": "delegate",
-    "reason": "This message contains credentials and instructions for a colleague to act on, which should be delegated.",
+    "reason": "This message contains instructions for a colleague to act on technical credentials and system changes.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -125,7 +125,7 @@
   {
     "message_id": "m044",
     "disposition": "delegate",
-    "reason": "The message asks a colleague to perform an action regarding an invoice approval.",
+    "reason": "The message asks a colleague to perform an action regarding an invoice, which should be delegated to Priya.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -236,8 +236,8 @@
   },
   {
     "message_id": "m041",
-    "disposition": "defer",
-    "reason": "This sets a standing rule for future scheduling that needs to be remembered for later interactions.",
+    "disposition": "reply",
+    "reason": "This message sets a standing rule for future scheduling, which requires the owner to acknowledge and confirm understanding.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -426,7 +426,7 @@
   {
     "message_id": "m030",
     "disposition": "reply",
-    "reason": "The sender is asking Sam to approve the final pricing copy by a specific date.",
+    "reason": "The sender specifically asks Sam to approve the final pricing copy by a certain date.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -571,7 +571,7 @@
   {
     "message_id": "m038",
     "disposition": "reply",
-    "reason": "The message confirms a meeting time and requires a response to acknowledge or confirm attendance.",
+    "reason": "The message confirms a meeting time and requires confirmation or acknowledgment from the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -657,7 +657,7 @@
   {
     "message_id": "m010",
     "disposition": "reply",
-    "reason": "The sender is asking for a meeting time and needs a confirmation from the owner.",
+    "reason": "The sender is asking to schedule a call and needs confirmation on a specific date and time.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -694,7 +694,7 @@
   {
     "message_id": "m040",
     "disposition": "delegate",
-    "reason": "The request involves preparing a board deck, which should be handed off to a colleague for completion.",
+    "reason": "The request involves a board deck, which suggests work that should be handed to a colleague.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -719,7 +719,7 @@
   {
     "message_id": "m117",
     "disposition": "archive",
-    "reason": "This is a routine reminder with no direct question asked of the owner.",
+    "reason": "This is a routine reminder with no direct question requiring the owner's immediate answer.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -996,7 +996,7 @@
   {
     "message_id": "m012",
     "disposition": "reply",
-    "reason": "The sender is asking if the owner has sorted out a specific item before a call.",
+    "reason": "The sender is asking if the owner has sorted out something discussed previously and needs an answer.",
     "path": "model",
     "rule": "abstain",
     "flags": [
@@ -1096,7 +1096,7 @@
   {
     "message_id": "m016",
     "disposition": "reply",
-    "reason": "The sender proposes a specific time and asks if it works for the owner's schedule.",
+    "reason": "The sender is asking if a specific time slot on Wednesday works for the owner.",
     "path": "model",
     "rule": "abstain",
     "flags": [

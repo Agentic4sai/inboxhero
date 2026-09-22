@@ -1,5 +1,42 @@
 {
-  "pending_actions": [],
+  "pending_actions": [
+    {
+      "message_id": "m044",
+      "action": "send",
+      "why_human": "follow-up is an external send and requires human approval",
+      "outcome": "not written to outbox"
+    },
+    {
+      "message_id": "m041",
+      "action": "send",
+      "why_human": "follow-up is an external send and requires human approval",
+      "outcome": "not written to outbox"
+    },
+    {
+      "message_id": "m044",
+      "action": "send",
+      "why_human": "follow-up is an external send and requires human approval",
+      "outcome": "not written to outbox"
+    },
+    {
+      "message_id": "m044",
+      "action": "send",
+      "why_human": "follow-up is an external send and requires human approval",
+      "outcome": "not written to outbox"
+    },
+    {
+      "message_id": "m044",
+      "action": "send",
+      "why_human": "follow-up is an external send and requires human approval",
+      "outcome": "not written to outbox"
+    },
+    {
+      "message_id": "m044",
+      "action": "send",
+      "why_human": "follow-up is an external send and requires human approval",
+      "outcome": "not written to outbox"
+    }
+  ],
   "flagged": [
     {
       "message_id": "m017",
