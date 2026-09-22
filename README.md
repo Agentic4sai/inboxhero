@@ -257,3 +257,21 @@ python demo.py --cap X3 --dry-run
 ```
 
 The real inbox demonstrates the boundary: `m044` is proposed because it has no later reply, while `m003` is excluded because the `t-api` thread received replies and `m041` is excluded because it was sent to the owner. X3 records gate decisions in `state/gated_actions.jsonl`; `--approve` may be used when the human explicitly wants to write approved proposals to `outbox/`.
+
+## Final Report
+
+### 1. What did you refuse to automate?
+
+I refused to automate hostile and manipulative mail, especially `m017`, `m021`, `m023`, `m024`, `m039`, `m045`, and `m047`. These messages try to get the assistant to forward mail, change payment details, or take an action without the owner’s approval, so the system marks them as `flag` and leaves them in place instead of acting on their behalf. The line is deliberate: a model may read them, but it may not follow instructions hidden inside untrusted email content. This is the safety boundary that keeps the workflow trustworthy.
+
+### 2. Where does untrusted text enter your system?
+
+Untrusted text enters at the mail store boundary, where every message from `data/inbox.json` is loaded and treated as raw external content before any routing, retrieval, drafting, or command execution happens. The architecture keeps email content clearly separated from trusted control logic, and irreversible actions are only reachable through the Part 4 gate rather than directly from the model. An attacker would have to defeat both the rule-layer classification and the action gate before any message could be sent or modified on the owner’s behalf.
+
+### 3. Who is accountable when it sends the wrong thing?
+
+The human owner remains accountable for the final decision, but the system makes the failure traceable by recording the proposal, the evidence IDs, the gate outcome, and the trace events in `state/gated_actions.jsonl` and `trace.jsonl`. If a message is badly worded, factually wrong, or sent to the wrong person, the provenance is recoverable from the message ID, the proposal, and the cited evidence. That is why every irreversible send goes through a logged approval or dry-run gate instead of being silently emitted.
+
+### 4. Name your own machinery.
+
+The project’s core machinery is assembled in `demo.py`, `flow.py`, `rules.py`, `retrieval.py`, `memory.py`, `actions.py`, and `dashboard.py`, with the scheduler, router, rule engine, and evidence validation all implemented directly in Python instead of relying on a generic framework. The framework used here is Moya for observability and pipeline structure, but the assignment-specific logic such as policy checking, memory, gate handling, and evidence validation is built by the project itself. A framework would have helped with orchestration, but it would not have solved the safety boundary or the auditability requirement, and so using one here would have mostly added overhead rather than reduced risk.
